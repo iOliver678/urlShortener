@@ -14,18 +14,19 @@ cursor = db.cursor()
 
 
 def createTable():
-   query = "CREATE TABLE urls(id INTEGER PRIMARY KEY, url TEXT, alias TEXT, timestamp TEXT)"
+   query = "CREATE TABLE IF NOT EXISTS urls(id INTEGER PRIMARY KEY, url TEXT, alias TEXT, timestamp TEXT)"
    cursor.execute(query)
    db.commit()
 
 def insertUrl(url, alias):
     if(not isAliasInDatabase(alias)):
+        time = datetime.now()
+        query = f"""INSERT INTO urls(url, alias, timestamp) VALUES ('{url}','{alias}','{time}')"""
         cursor.execute(query)
-        time = datetime.time
-        query = f"""INSERT INTO urls(url, alias, timestamp) VALUES ({url},{alias},{time})"""
         db.commit()
         return True
     else:
+        print("Alias already exist")
         return False
     
 def deleteUrl(alias):
@@ -47,15 +48,19 @@ def findUrl(alias):
     return item
 
 def isAliasInDatabase(alias):
-    query = f"""SELECT alias FROM urls WHERE alias='{alias}'"""
+    query = f"""SELECT alias FROM urls WHERE alias='{alias}'"""""
     res = cursor.execute(query)
-    if(res.fetchone is None):
+    if(res.fetchone() is None):
         return False
     else:
-        True
+        return True
     
-
-    
+createTable()
+print(showAll())
+insertUrl("youtube.com","yt")
+print(showAll())
+insertUrl("youtube.com","yt")
+   
 
 
    
