@@ -44,6 +44,7 @@ def findUrl(alias):
     query = f"SELECT url FROM urls WHERE alias='{alias}'"
     res = cursor.execute(query)
     item = res.fetchone()
+    item = item[0]
     return item
 
 def isAliasInDatabase(alias):
@@ -53,10 +54,5 @@ def isAliasInDatabase(alias):
         return False
     else:
         return True
-
-
-
-
-
     
 
