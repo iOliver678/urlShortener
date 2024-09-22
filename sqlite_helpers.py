@@ -54,13 +54,6 @@ def isAliasInDatabase(alias):
         return False
     else:
         return True
-    
-createTable()
-print(showAll())
-insertUrl("youtube.com","yt")
-print(showAll())
-insertUrl("youtube.com","yt")
-   
 
 
    
