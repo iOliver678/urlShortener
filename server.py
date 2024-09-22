@@ -35,5 +35,6 @@ async def deleteUrl(alias):
     sqlite_helpers.deleteUrl(alias)
     return ({"message": "Succesfully deleted"})
 
+
 if __name__ == "__main__":
     uvicorn.run("server:app", port=8000, reload=True)

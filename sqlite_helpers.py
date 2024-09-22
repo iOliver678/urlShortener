@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import datetime
+import hash
 
 
 db_file = "Database.db"
@@ -16,6 +17,8 @@ def createTable():
 def insertUrl(url, alias):
     if(not isAliasInDatabase(alias)):
         time = datetime.now()
+        if alias == "":
+            alias = hash.createAlias(url, time)
         query = f"""INSERT INTO urls(url, alias, timestamp) VALUES ('{url}','{alias}','{time}')"""
         cursor.execute(query)
         db.commit()
@@ -24,6 +27,7 @@ def insertUrl(url, alias):
         print("Alias already exist")
         return False
     
+
 def deleteUrl(alias):
     query = f"DELETE FROM urls WHERE alias='{alias}'"
     cursor.execute(query)
@@ -55,3 +59,9 @@ def isAliasInDatabase(alias):
         return True
     
 
+def clearTable():
+    query = "DELETE FROM urls"
+    cursor.execute(query)
+    db.commit()
+
+clearTable()
