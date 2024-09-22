@@ -43,7 +43,7 @@ def showAll():
 def findUrl(alias):
     query = f"SELECT url FROM urls WHERE alias='{alias}'"
     res = cursor.execute(query)
-    item = res.fetchone()
+    item = res.fetchone()[0]
     item = item[0]
     return item
 
