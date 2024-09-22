@@ -58,3 +58,7 @@ def isAliasInDatabase(alias):
         return False
     else:
         return True
+
+print(showAll())
+insertUrl("youtube")
+print(showAll())
