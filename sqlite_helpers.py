@@ -1,12 +1,7 @@
 import sqlite3
 from datetime import datetime
-#function for table creation
-    #table will have url, alias, timestamp, id
-#function for inserting a url into the table
-#function for deleting a url
-#function for listing all urls
-#function for retrieving 1 url based on alias
-#function for checking if alias exists in the db
+
+
 db_file = "Database.db"
 db = sqlite3.connect(db_file)
 cursor = db.cursor()
@@ -37,14 +32,18 @@ def deleteUrl(alias):
 def showAll():
     query = "SELECT * FROM urls"
     res = cursor.execute(query)
+    listData = []
     allItems = res.fetchall()
-    return allItems
+    for row in allItems:
+        holder = {"id": row[0], "url": row[1], "alias": row[2], "timestamp": row[3]}
+        listData.append(holder)
+    return listData
     
 
 def findUrl(alias):
     query = f"SELECT url FROM urls WHERE alias='{alias}'"
     res = cursor.execute(query)
-    item = res.fetchone()
+    item = res.fetchone()[0]
     return item
 
 def isAliasInDatabase(alias):
@@ -54,10 +53,5 @@ def isAliasInDatabase(alias):
         return False
     else:
         return True
-
-
-   
-    
-
     
 
