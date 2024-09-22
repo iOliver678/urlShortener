@@ -14,12 +14,11 @@ def createTable():
    cursor.execute(query)
    db.commit()
 
-def insertUrl(url, alias=None):
+def insertUrl(url, alias):
     if(not isAliasInDatabase(alias)):
         time = datetime.now()
-        if alias is None:
+        if alias == "":
             alias = hash.createAlias(url, time)
-        
         query = f"""INSERT INTO urls(url, alias, timestamp) VALUES ('{url}','{alias}','{time}')"""
         cursor.execute(query)
         db.commit()
@@ -58,7 +57,11 @@ def isAliasInDatabase(alias):
         return False
     else:
         return True
+    
 
-print(showAll())
-insertUrl("youtube")
-print(showAll())
+def clearTable():
+    query = "DELETE FROM urls"
+    cursor.execute(query)
+    db.commit()
+
+clearTable()
