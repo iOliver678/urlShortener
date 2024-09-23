@@ -3,22 +3,18 @@ from datetime import datetime
 import hash
 
 
-db_file = "Database.db"
-db = sqlite3.connect(db_file)
-cursor = db.cursor()
-
-
-
-def createTable():
+def createTable(db_file):
+   db = sqlite3.connect(db_file)
+   cursor = db.cursor()
    query = "CREATE TABLE IF NOT EXISTS urls(id INTEGER PRIMARY KEY, url TEXT, alias TEXT, timestamp TEXT)"
    cursor.execute(query)
    db.commit()
 
-def insertUrl(url, alias):
+def insertUrl(url, alias, db_file):
+    db = sqlite3.connect(db_file)
+    cursor = db.cursor()
     if(not isAliasInDatabase(alias)):
         time = datetime.now()
-        if alias == "":
-            alias = hash.createAlias(url, time)
         query = f"""INSERT INTO urls(url, alias, timestamp) VALUES ('{url}','{alias}','{time}')"""
         cursor.execute(query)
         db.commit()
@@ -28,12 +24,16 @@ def insertUrl(url, alias):
         return False
     
 
-def deleteUrl(alias):
+def deleteUrl(alias, db_file):
+    db = sqlite3.connect(db_file)
+    cursor = db.cursor()
     query = f"DELETE FROM urls WHERE alias='{alias}'"
     cursor.execute(query)
     db.commit()
 
-def showAll():
+def showAll(db_file):
+    db = sqlite3.connect(db_file)
+    cursor = db.cursor()
     query = "SELECT * FROM urls"
     res = cursor.execute(query)
     listData = []
@@ -44,13 +44,17 @@ def showAll():
     return listData
     
 
-def findUrl(alias):
+def findUrl(alias, db_file):
+    db = sqlite3.connect(db_file)
+    cursor = db.cursor()
     query = f"SELECT url FROM urls WHERE alias='{alias}'"
     res = cursor.execute(query)
     item = res.fetchone()[0]
     return item
 
-def isAliasInDatabase(alias):
+def isAliasInDatabase(alias, db_file):
+    db = sqlite3.connect(db_file)
+    cursor = db.cursor()
     query = f"""SELECT alias FROM urls WHERE alias='{alias}'"""""
     res = cursor.execute(query)
     if(res.fetchone() is None):
@@ -59,9 +63,9 @@ def isAliasInDatabase(alias):
         return True
     
 
-def clearTable():
+def clearTable(db_file):
+    db = sqlite3.connect(db_file)
+    cursor = db.cursor()
     query = "DELETE FROM urls"
     cursor.execute(query)
     db.commit()
-
-clearTable()
