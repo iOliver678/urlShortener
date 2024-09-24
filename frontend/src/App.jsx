@@ -4,32 +4,39 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+ return(
+  <div id="body">
+    <header id="title">Create a new link</header>
+    <div className='inputBoxes'>
+    <input
+      type="text"
+      id="urlFromUser"
+      placeholder='Enter URl'
+      />
+    <input
+      type="text"
+      id="aliasFromUser"
+      placeholder='Alias'
+      />
+    <button id="createUrl">Create</button>
+    </div>
+    <p id="tableHeader">List of URL's:</p>
+    <table className='urlTable'>
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <thead>
+      <tr className="header-panel">
+        <th id="url-table">Url</th>
+        <th>Alias</th>
+        <th>Link</th>
+        <th id='trashCan'></th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+    </table>
+  </div>
+ );
 }
 
 export default App
