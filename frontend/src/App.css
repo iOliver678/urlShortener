@@ -27,7 +27,19 @@
 .urlTable th{
 
   border: 1px solid;
+  color: white;
 }
 #url-table{
   width: 55%;
+}
+#url-display{
+  color: black;
+}
+#alias-display{
+  text-align: center;
+  color: black;
+}
+#link-display{
+  text-align: right;
+  color :black;
 }

@@ -1,17 +1,25 @@
 import json
-import Backend.hash as hash
+import hash
 import time
 import random
 import logging
 import uvicorn
-import Backend.sqlite_helpers as sqlite_helpers
-from Backend.args import get_args
+import sqlite_helpers as sqlite_helpers
+from args import get_args
 from datetime import datetime
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, status, HTTPException
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 app= FastAPI()
 args = get_args()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Replace with your React app's origin (Vite defaults to port 5173)
+    allow_credentials=True,
+    allow_methods=["*"],  # You can restrict this to 'POST' if you want
+    allow_headers=["*"],  # You can restrict this to the necessary headers
+)
 
 db_file_path = args.db_file
 sqlite_helpers.createTable(db_file_path)
@@ -30,12 +38,13 @@ async def jsonReturns(request: Request):
 
         if(sqlite_helpers.insertUrl(url, alias, db_file_path)):
             return ({"url": url, "alias": alias})
-            
+        
         else:
-            return ({"message": "error"})
-    except:
+            raise HTTPException(status_code=400)
+            
+    except Exception:
         logging.error('Error uploading, must insert a URL')
-        return ({"message": "must upload a URL"})
+        raise HTTPException(status_code=400, detail="invalid input")
         
 
 @app.get("/all")
@@ -45,7 +54,8 @@ async def listAll():
         return(sqlite_helpers.showAll(db_file_path))
     except:
         logging.error(f'failed to reach {db_file_path}')
-        return ({"message": f"failed to retrive all from {db_file_path}"})
+        return HTTPException(status_code=400, detail=f"could not find {db_file_path}")
+
 
 @app.get("/search/{alias}")
 async def searchAlias(alias):
@@ -54,7 +64,7 @@ async def searchAlias(alias):
         return RedirectResponse(url)
     except:
         logging.error(f"could not find {alias}")
-        return ({"message": f"could not find {alias}"})
+        return HTTPException(status_code=400, detail="could not find alias")
 
 @app.post("/delete/{alias}")
 async def deleteUrl(alias):
@@ -63,8 +73,14 @@ async def deleteUrl(alias):
         return ({"message": "Succesfully deleted entry"})
     except:
         logging.error(f"failed to delete {alias}")
-        return ({"message": f"failed to delete/locate {alias}"})
+        return HTTPException(status_code=400, detail="could not find/delete alias")
 
+    
+#do not touch
+@app.post("/clear-table")
+async def clearTable():
+    sqlite_helpers.clearTable(db_file_path)
+    return ({"message": "Succesfully cleared table"})
 
 @app.get("/logging-levels")
 def logging_levels():

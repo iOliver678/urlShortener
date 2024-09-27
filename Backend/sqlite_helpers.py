@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import datetime
-import Backend.hash as hash
+import hash
 import logging
 
 
