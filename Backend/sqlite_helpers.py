@@ -85,7 +85,6 @@ def isAliasInDatabase(alias, db_file):
     except:
         logging.error("error in isInAliasInDatabase")
     
-
 def clearTable(db_file):
     db = sqlite3.connect(db_file)
     cursor = db.cursor()

@@ -24,6 +24,9 @@ app.add_middleware(
 db_file_path = args.db_file
 sqlite_helpers.createTable(db_file_path)
 
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the URL Shortener API"}
 
 @app.post("/upload")
 async def jsonReturns(request: Request):
