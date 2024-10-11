@@ -23,6 +23,25 @@ function App() {
       this.name = "ValidationError";
     }
   }
+  const handleDelete = async (aliasToDelete) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/delete/${aliasToDelete}`, {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete alias: ${aliasToDelete}`);
+      }
+
+      // Filter out the deleted item from the dataList state
+      setDataList(dataList.filter((item) => item.alias !== aliasToDelete));
+      alert('Entry successfully deleted');
+    } catch (error) {
+      console.error('Error deleting entry:', error);
+      alert('Could not delete the entry. Please try again.');
+    }
+  };
+  
   const handleUpload = async (e) => {
     
     e.preventDefault();
@@ -142,7 +161,7 @@ function App() {
           <td id="url-display">{data.url}</td>
           <td id="alias-display">{data.alias}</td>
           <td> <a id="link-display" href={data.link} target='_blank'>{data.link}</a></td>
-          <td id="delete"><button>delete</button></td>
+          <td id="delete"><button onClick={() => handleDelete(data.alias)}>delete</button></td>
         </tr>
       ))}
     </tbody>
