@@ -48,7 +48,6 @@ async def jsonReturns(request: Request):
     except Exception:
         logging.error('Error uploading, must insert a URL')
         raise HTTPException(status_code=400, detail="invalid input")
-        
 
 @app.get("/all")
 async def listAll():
