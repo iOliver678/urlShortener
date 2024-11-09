@@ -7,7 +7,8 @@ function App() {
   const[dataList, setDataList] = useState([])
   const[url, setUrl] = useState('')
   const [alias, setAlias] = useState('')
-  const host_url = 'http://10.250.18.132:8080'
+  const host_url = import.meta.env.VITE_BACKEND_URL;
+
   
   
   function isValidUrl(string) {
