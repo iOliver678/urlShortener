@@ -15,7 +15,7 @@ app= FastAPI()
 args = get_args()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://10.250.18.132:8080"],  # Replace with your React app's origin (Vite defaults to port 5173)
+    allow_origins=["http://localhost:5173", "https://urlshortener-production-8fe8.up.railway.app"],  # Replace with your React app's origin (Vite defaults to port 5173)
     allow_credentials=True,
     allow_methods=["*"],  # You can restrict this to 'POST' if you want
     allow_headers=["*"],  # You can restrict this to the necessary headers
