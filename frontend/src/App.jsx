@@ -7,7 +7,7 @@ function App() {
   const[dataList, setDataList] = useState([])
   const[url, setUrl] = useState('')
   const [alias, setAlias] = useState('')
-  url = 'https://urlshortener-production-8fe8.up.railway.app'
+  const host_url = 'https://urlshortener-production-8fe8.up.railway.app'
   
   
   function isValidUrl(string) {
@@ -26,7 +26,7 @@ function App() {
   }
   const handleDelete = async (aliasToDelete) => {
     try {
-      const response = await fetch(`${url}/delete/${aliasToDelete}`, {
+      const response = await fetch(`${host_url}/delete/${aliasToDelete}`, {
         method: 'POST',
       });
 
@@ -60,7 +60,7 @@ function App() {
       if (!isValidUrl(url)){
         throw new ValidationError(`Invalid Url!`)
       }
-      const response = await fetch('${url}/upload',{
+      const response = await fetch('${host_url}/upload',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ function App() {
       const result = await response.json();
       console.log(result);
       data.alias = result.alias
-      data.link = `${url}/search/${data.alias}`
+      data.link = `${host_url}/search/${data.alias}`
       setDataList([...dataList,data]);
     }
     catch (error) {
@@ -99,14 +99,14 @@ function App() {
 
     const fetchData = async () => {
       try{
-      const response = await fetch('${url}/all')
+      const response = await fetch('${host_url}/all')
       console.log(response)
       const result = await response.json();
 
       if(result && Array.isArray(result)){
       const updatedData = result.map(item => ({
           ...item,
-          link: `${url}/search/${item.alias}`
+          link: `${host_url}/search/${item.alias}`
       }));
       setDataList(updatedData);
     }else {
