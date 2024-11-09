@@ -60,7 +60,7 @@ function App() {
       if (!isValidUrl(url)){
         throw new ValidationError(`Invalid Url!`)
       }
-      const response = await fetch('${host_url}/upload',{
+      const response = await fetch(`${host_url}/upload`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ function App() {
 
     const fetchData = async () => {
       try{
-      const response = await fetch('${host_url}/all')
+      const response = await fetch(`${host_url}/all`)
       console.log(response)
       const result = await response.json();
 
