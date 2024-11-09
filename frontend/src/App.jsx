@@ -35,13 +35,13 @@ function App() {
 
       // Filter out the deleted item from the dataList state
       setDataList(dataList.filter((item) => item.alias !== aliasToDelete));
-      alert('Entry successfully deleted');
+      alert('Entry  successfully deleted');
     } catch (error) {
       console.error('Error deleting entry:', error);
       alert('Could not delete the entry. Please try again.');
     }
   };
-  
+
   const handleUpload = async (e) => {
     
     e.preventDefault();
