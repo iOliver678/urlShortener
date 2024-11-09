@@ -7,7 +7,7 @@ function App() {
   const[dataList, setDataList] = useState([])
   const[url, setUrl] = useState('')
   const [alias, setAlias] = useState('')
-  const host_url = 'https://urlshortener-production-8fe8.up.railway.app'
+  const host_url = 'http://10.250.17.200/'
   
   
   function isValidUrl(string) {
