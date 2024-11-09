@@ -7,7 +7,7 @@ function App() {
   const[dataList, setDataList] = useState([])
   const[url, setUrl] = useState('')
   const [alias, setAlias] = useState('')
-  const host_url = 'http://10.250.17.200'
+  const host_url = 'http://10.250.18.132:8080'
   
   
   function isValidUrl(string) {
