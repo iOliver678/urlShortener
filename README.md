@@ -17,4 +17,5 @@ This is a simple URL Shortener application built using FastAPI for the backend a
 - **Database**: SQLite
 - **Styling**: CSS
 
-<img width="1539" alt="url-shortener" src="https://github.com/user-attachments/assets/3494afef-0835-40b0-ac95-555b861936a1" />
+
+![cleezy](https://github.com/user-attachments/assets/5bbea8cc-96ad-4c64-b644-5d9c940c0579)
